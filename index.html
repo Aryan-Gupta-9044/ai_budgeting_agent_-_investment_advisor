@@ -60,6 +60,18 @@
         <canvas id="expenseChart"></canvas>
     </div>
 
+    <div class="container">
+        <h2>Stock Market Prediction Tool</h2>
+        <div class="form-group">
+            <label for="stockSymbol">Enter Stock Symbol (e.g., AAPL, TSLA):</label>
+            <input type="text" id="stockSymbol" placeholder="Enter stock symbol">
+            <button onclick="fetchStockData()">Get Stock Data</button>
+        </div>
+        <h3>Stock Price Trend</h3>
+        <canvas id="stockChart"></canvas>
+        <div id="stockData"></div>
+    </div>
+
     <script src="script.js"></script>
 
 </body>
