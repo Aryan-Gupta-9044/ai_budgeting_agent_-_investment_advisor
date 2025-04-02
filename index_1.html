@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Budget & Investment Advisor</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>AI-Powered Budget & Investment Advisor</h1>
+
+        <div class="form-group">
+            <label for="income">Enter Monthly Income (₹):</label>
+            <input type="number" id="income" required>
+        </div>
+
+        <div class="form-group">
+            <label for="numMonths">Enter Number of Months:</label>
+            <input type="number" id="numMonths" min="2" required>
+            <button onclick="generateExpenseInputs()">Enter Expenses</button>
+        </div>
+
+        <div id="expenseInputs"></div>
+
+        <button id="predictBtn" style="display:none;" onclick="analyzeAndPredict()">Analyze & Predict</button>
+
+        <h3>Expense Data</h3>
+        <table id="expenseTable">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Month</th>
+                    <th>Amount (₹)</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <h3>Predicted Expenses for Next Month</h3>
+        <table id="predictedExpenseTable">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Predicted Amount (₹)</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <div id="aiSuggestions"></div>
+        <div id="investmentTips"></div>
+        <div id="financialScore"></div>
+        <div id="budgetChallenges"></div>
+
+        <h3>Expense Trends</h3>
+        <canvas id="expenseChart"></canvas>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
