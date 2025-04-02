@@ -121,3 +121,49 @@ function updateExpenseChart(pastExpenses, predictions) {
 function getRandomColor() {
     return `hsl(${Math.floor(Math.random() * 360)}, 80%, 60%)`;
 }
+
+function fetchStockData() {
+    let symbol = document.getElementById("stockSymbol").value.trim();
+    if (!symbol) {
+        alert("Enter a stock symbol.");
+        return;
+    }
+
+    fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=YOUR_API_KEY`)
+        .then(response => response.json())
+        .then(data => {
+            if (!data["Time Series (Daily)"]) {
+                document.getElementById("stockData").innerHTML = `<p>Invalid symbol or data unavailable.</p>`;
+                return;
+            }
+
+            let timeSeries = data["Time Series (Daily)"];
+            let labels = Object.keys(timeSeries).slice(0, 7).reverse();
+            let prices = labels.map(date => parseFloat(timeSeries[date]["4. close"]));
+
+            document.getElementById("stockData").innerHTML = `
+                <h3>${symbol} Stock Data</h3>
+                <p>Last Closing Price: ₹${prices[prices.length - 1]}</p>
+            `;
+
+            let ctx = document.getElementById("stockChart").getContext("2d");
+            new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: `${symbol} Stock Price`,
+                        data: prices,
+                        borderColor: "blue",
+                        borderWidth: 2,
+                        fill: false
+                    }]
+                },
+                options: { responsive: true }
+            });
+        })
+        .catch(error => {
+            console.error("Error fetching stock data:", error);
+            document.getElementById("stockData").innerHTML = `<p>Error fetching stock data.</p>`;
+        });
+}
